@@ -1,26 +1,43 @@
+/*
+ * Esta solução faz o controle ciclico
+ * */
+
 #include<stdio.h>
 #include<stdbool.h>
 #define MAXQUEUE 4
 
 struct queue {
-	int front, rear;
+	int front, rear, aux;
 	int itens[MAXQUEUE];
 };
 
 void printStack(struct queue *s){
 	printf("Front: %d\n", s->front);
 	printf("Rear: %d\n", s->rear);
+	printf("Aux: %d\n", s->aux);
 	printf("Itens: ");
-	for(int i=s->front; i<=s->rear; i++){
+	
+	for(int i=(s->front); i!=s->rear; i = (i+1) % MAXQUEUE){
 		printf("%d ", s->itens[i]);
 	}
 	printf("\n");
+
 }
 
-bool fullFunction(struct queue *s){
-	if((s->rear)==(MAXQUEUE-1)){
+bool fullFunction(struct queue *s){	
+	if(((s->rear)+1+MAXQUEUE)%MAXQUEUE==(s->front)){
 		return true;
 	}
+	/*
+	if((s->aux)+1==MAXQUEUE){
+		return true;
+		}
+	
+	
+	if((s->rear==s->front)){
+		return true;
+		}*/
+	
 	else{
 		return false;
 	}
@@ -29,33 +46,34 @@ bool fullFunction(struct queue *s){
 void insertFunction(struct queue *s, int valor){
 	if(fullFunction(s)){
 		printf("Fila cheia\n");
+		s->itens[s->rear] = valor;	
 	}
-	else{
-		s->rear++;	
-		s->itens[s->rear] = valor;
+	else{		
+		s->itens[s->rear] = valor;		
+		s->rear = (((s->rear)+MAXQUEUE+1) % MAXQUEUE);	
 	}
 }
 
 bool emptyFunction(struct queue *s){
-	if((s->front)>(s->rear)){
+	
+	/*	
+	if(((s->front)-1+MAXQUEUE)%MAXQUEUE==(s->rear)){
 		return true;
-	}
+	}*/
+	
+	if(s->aux==-1){
+		return true;
+		}
+	
 	else{
 		return false;
 	}
 }
 
-void arrumaFrontRear(struct queue *s){
-	for(int i=(s->front); i<=(s->rear); i++){
-		s->itens[i-1] = s->itens[i];
-		}
-	s->front--;
-	s->rear--;
-	}
-
 int removeFunction(struct queue *s){
 	int valor = s->itens[s->front];
-	s->front++;
+	s->front = (((s->front)+MAXQUEUE+1) % MAXQUEUE);
+	s->aux--;
 	return valor;
 }
 
@@ -71,7 +89,8 @@ void validaRemove(struct queue * s){
 }
 
 int sizeFunction(struct queue *s){
-	return (s->rear)-(s->front)+1;
+	//return s->aux;
+	return ((s->front)-1-(s->rear) + MAXQUEUE) % MAXQUEUE;
 }
 
 int frontFuncion(struct queue *s){
@@ -82,11 +101,11 @@ int main(){
 
 	struct queue s;
 	s.front = 0;
-	s.rear=-1;
+	s.rear=0;
+	s.aux=-1;
 
 	int escolha = 0;
-
-	//printf("MAXQUEUE = %d\n", MAXQUEUE);
+	printf("FILA - CONTROLE CÍCLICO\n");
 
 	do{
 		printf("\n\n\t\t\t1- Para imprimir o queue\n");
@@ -99,7 +118,7 @@ int main(){
 		printf("\t\t\t8- Para sair\n");
 
 		scanf("%d", &escolha);
-
+		
 		if(escolha==1){
 			printStack(&s);
 		}
@@ -113,7 +132,6 @@ int main(){
 
 		else if(escolha==3){
 			validaRemove(&s);
-			arrumaFrontRear(&s);
 		}
 
 		else if(escolha==4){

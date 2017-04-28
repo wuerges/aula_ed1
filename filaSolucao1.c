@@ -1,3 +1,8 @@
+/*
+ * Esta solução reorganiza todos os elementos da fila a cada remove.
+ * Ver função: reorganizaFronteRear
+ * */
+
 #include<stdio.h>
 #include<stdbool.h>
 #define MAXQUEUE 4
@@ -45,7 +50,7 @@ bool emptyFunction(struct queue *s){
 	}
 }
 
-void arrumaFrontRear(struct queue *s){
+void reorganizaFrontRear(struct queue *s){
 	for(int i=(s->front); i<=(s->rear); i++){
 		s->itens[i-1] = s->itens[i];
 		}
@@ -85,8 +90,8 @@ int main(){
 	s.rear=-1;
 
 	int escolha = 0;
+	printf("FILA - SOLUÇÃO 1\n");
 
-	//printf("MAXQUEUE = %d\n", MAXQUEUE);
 
 	do{
 		printf("\n\n\t\t\t1- Para imprimir o queue\n");
@@ -113,7 +118,7 @@ int main(){
 
 		else if(escolha==3){
 			validaRemove(&s);
-			arrumaFrontRear(&s);
+			reorganizaFrontRear(&s);
 		}
 
 		else if(escolha==4){

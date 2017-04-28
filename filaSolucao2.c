@@ -1,3 +1,9 @@
+/*
+ * Esta solução reorganiza todos os elementos da fila apenas quando se
+ * atinge o valor máximo de rear.
+ * Ver função: reorganizaFronteRear
+ * */
+
 #include<stdio.h>
 #include<stdbool.h>
 #define MAXQUEUE 4
@@ -45,9 +51,11 @@ bool emptyFunction(struct queue *s){
 	}
 }
 
-void arrumaFrontRear(struct queue *s){
+void reorganizaFrontRear(struct queue *s){
+	int count = 0;
 	for(int i=(s->front); i<=(s->rear); i++){
-		s->itens[i-1] = s->itens[i];
+		s->itens[count] = s->itens[i];
+		count++;
 		}
 	s->front--;
 	s->rear--;
@@ -85,8 +93,7 @@ int main(){
 	s.rear=-1;
 
 	int escolha = 0;
-
-	//printf("MAXQUEUE = %d\n", MAXQUEUE);
+	printf("FILA - SOLUÇÃO 2\n");
 
 	do{
 		printf("\n\n\t\t\t1- Para imprimir o queue\n");
@@ -99,6 +106,13 @@ int main(){
 		printf("\t\t\t8- Para sair\n");
 
 		scanf("%d", &escolha);
+		
+		/*
+		 * Reorganiza quando o vetor enche
+		 * */
+		if(fullFunction(&s)){
+			reorganizaFrontRear(&s);
+			}
 
 		if(escolha==1){
 			printStack(&s);
@@ -113,7 +127,6 @@ int main(){
 
 		else if(escolha==3){
 			validaRemove(&s);
-			arrumaFrontRear(&s);
 		}
 
 		else if(escolha==4){
