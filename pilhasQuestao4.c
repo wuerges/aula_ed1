@@ -1,7 +1,5 @@
 /*
- * 3. Construir uma função que troca de lugar o elemento que está no topo 
- * da pilha com o que está na base da pilha. Usar apenas uma pilha como 
- * auxiliar.
+ * 4. Comparar se duas pilhas são iguais
  */
 
 #include<stdio.h>
@@ -90,6 +88,26 @@ void topoBase(struct stack *s){
 	s->itens[0] = aux;
 	}
 
+bool equalFunction(int tamanho1, int tamanho2, struct stack* s, struct stack* sI){
+	if(tamanho1 != tamanho2){
+		return false;
+		}
+	else if(tamanho1 == tamanho2){
+		int count = 0;
+		for(int i=0; i<tamanho1; i++){
+			if(s->itens[i] == sI->itens[i]){
+				count++;
+				}
+			}
+		if(count==tamanho1){
+			return true;
+			}
+		else{
+			return false;
+			}
+		}
+	}
+
 
 int main(){
 
@@ -101,13 +119,13 @@ int main(){
 
 	int escolha = 0;
 	
-	printf("PILHAS - QUESTÃO 4\n COMPARAR DUAS PILHAS");	
+	printf("PILHAS - QUESTÃO 4\n COMPARAR DUAS PILHAS\n");	
 
 	printf("Insira o tamanho da pilha 1: ");
 	int tamanho1 = 0;
-	scanf("%d", &tamanho);
+	scanf("%d", &tamanho1);
 	
-	printf("Insira os %d elementos da pilha 1: \n", tamanho);
+	printf("Insira os %d elementos da pilha 1: \n", tamanho1);
 	int elemento1;
 	for(int i=0; i<tamanho1; i++){
 		scanf("%d", &elemento1);
@@ -118,84 +136,20 @@ int main(){
 	int tamanho2;
 	scanf("%d", &tamanho2);
 	
-	printf("Insira os %d elementos da pilha 2: \n", tamanho);
-	int elemento;
+	printf("Insira os %d elementos da pilha 2: \n", tamanho2);
+	int elemento2;
 	for(int i=0; i<tamanho2; i++){
-		scanf("%d", &elemento);
-		pushFunction(&s, elemento);
+		scanf("%d", &elemento2);
+		pushFunction(&sI, elemento2);
 		}	
 
-
-/*
-	do{
-		printf("\t\t\t1- Para imprimir o stack\n");
-		printf("\t\t\t2- Para função push\n");
-		printf("\t\t\t3- Para função pop\n");
-		printf("\t\t\t4- Para função empty\n");
-		printf("\t\t\t5- Para função full\n");
-		printf("\t\t\t6- Para função size\n");
-		printf("\t\t\t7- Para função stack top\n\n");
-		printf("\t\t\t8 - PARA INVERTER O STACK\n\n");
-		printf("\t\t\t9 - PARA TROCAR BASE POR TOPO\n\n");
-		printf("\t\t\t10- Para sair\n");
-
-		scanf("%d", &escolha);
-
-		if(escolha==1){					
-			printStack(&s);
+	if(equalFunction(tamanho1, tamanho2, &s, &sI)){
+		printf("É igual\n");
 		}
-		
-		else if(escolha==2){
-			printf("Digite o valor a ser inserido: ");
-			int valor;
-			scanf("%d", &valor);
-			pushFunction(&s, valor);
+	else{
+		printf("não é igual\n");
 		}
 
-		else if(escolha==3){
-			popFunction(&s);
-		}
-
-		else if(escolha==4){
-			int truefalse = emptyFunction(&s);
-
-			if (truefalse==true){
-				printf("Pilha vazia\n");
-			}
-			else{
-				printf("Pilha não vazia\n");
-			}
-		}
-
-		else if(escolha==5){
-			int truefalse = fullFunction(&s);
-
-			if (truefalse==true){
-				printf("Pilha cheia\n");
-			}
-			else{
-				printf("Pilha não cheia\n");
-			}
-		}
-
-		else if(escolha==6){
-			printf("Tamanho da pilha: %d\n", sizeFunction(&s));
-		}
-
-		else if(escolha==7){
-			printf("Último elemento da lista: %d\n", stacktopFuncion(&s));
-		}
-		
-		else if(escolha==8){
-			inverteStack(&s, &sI);
-			}
-			
-		else if(escolha==9){
-			topoBase(&s);
-			}
-
-	}while(escolha!=10);
-	*/
 
 	return 0;
 }
