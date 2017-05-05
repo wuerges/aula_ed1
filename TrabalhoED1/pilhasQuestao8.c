@@ -18,7 +18,7 @@
 struct stack {
 	int top;
 	int itens[STACKSIZE];
-};
+	};
 
 void printStack(struct stack *s){
 	printf("Top: %d\n", s->top);
@@ -58,13 +58,14 @@ bool emptyFunction(struct stack *s){
 }
 
 int popFunction(struct stack *s){
-	int numero = -1;
+	int numero;
 	if(emptyFunction(s)){
 		printf("Operação Inválida! Pilha vazia!\n");
+		numero = -1;
 		}
 	else{
 		printf("Valor removido: %d\n", s->itens[s->top]);
-		int numero = s->itens[s->top];
+		numero = s->itens[s->top];
 		s->top--;		
 		}
 	return numero;
@@ -100,6 +101,15 @@ void topoBase(struct stack *s){
 	s->itens[0] = aux;
 	}
 
+bool operacaoValida(struct stack* s){
+	if(s->top>=1){
+		return true;
+		}
+	else{
+		return false;
+		}
+	}
+
 int main(){
 
 	struct stack s;
@@ -120,73 +130,60 @@ int main(){
 	printf("PILHAS - QUESTÃO 8\n");	
 	
 	do{
-		printf("\t\t\tNúmero para empilhar\n");
-		printf("\t\t\t+, -, * ou /\n");
-		printf("\t\t\tm, mostrar a pilha\n");
-		printf("\t\t\tl, limpar a pilha\n");
-		printf("\t\t\ts, sair\n");
+		printf("\t\t\tDigite um número para empilhar\n");
+		printf("\t\t\t+, -, * ou / para operações\n");
+		printf("\t\t\tm: mostrar a pilha\n");
+		printf("\t\t\tl: limpar a pilha\n");
+		printf("\t\t\ts: sair\n");
 		
 		scanf("%c", &escolha);	
-		
+				
 		if('+' == escolha){	
-			if(emptyFunction(&s)){
-				printf("Lista vazia");
+			if(operacaoValida(&s)){
+				int soma = popFunction(&s) + popFunction(&s);
+				pushFunction(&s, soma);
 				}
 			else{
-				int a = popFunction(&s);
-				int b = popFunction(&s);
-				if(b<0){
-					b = 0;
-					}
-				printf("Soma: %d\n", a+b);
-				pushFunction(&s, (a+b));
-				}
+				printf("Operação Inválida!\nMenos de dois elementos na pilha\n");
+				}				
 			}
 
-		else if('-' == escolha){
-			if(emptyFunction(&s)){
-				printf("Lista vazia");
+		if('-' == escolha){	
+			if(operacaoValida(&s)){
+				int sub = popFunction(&s) - popFunction(&s);
+				pushFunction(&s, sub);
 				}
 			else{
-				int a = popFunction(&s);
-				int b = popFunction(&s);
-				if(b<0){
-					b = 0;
-					}
-				printf("Subtração: %d\n", a-b);
-				pushFunction(&s, (a-b));
-				}
+				printf("Operação Inválida!\nMenos de dois elementos na pilha\n");
+				}				
 			}
 
-		else if('*' == escolha){
-			if(emptyFunction(&s)){
-				printf("Lista vazia");
+		if('*' == escolha){	
+			if(operacaoValida(&s)){
+				int mult = popFunction(&s) * popFunction(&s);
+				pushFunction(&s, mult);
 				}
 			else{
-				int a = popFunction(&s);
-				int b = popFunction(&s);
-				if(b<0){
-					b = 1;
-					}
-				printf("Multiplicação: %d\n", a*b);
-				pushFunction(&s, (a*b));
-				}
+				printf("Operação Inválida!\nMenos de dois elementos na pilha\n");
+				}				
 			}
 
-		else if('/' == escolha){
-			if(emptyFunction(&s)){
-				printf("Lista vazia");
+		if('/' == escolha){	
+			if(operacaoValida(&s)){
+				int a = popFunction(&s); 
+				int b = popFunction(&s);
+				if(b>0){
+					int div = a/b;
+					pushFunction(&s, div);
+					}
+				else{
+					printf("Operação inválida!\nDivisão por zero!\n");
+					}				
 				}
 			else{
-				int a = popFunction(&s);
-				int b = popFunction(&s);
-				if(b<0){
-					b = 1;
-					}
-				printf("Divisão: %d\n", a/b);
-				pushFunction(&s, (a/b));
-				}
-			}	
+				printf("Operação Inválida!\nMenos de dois elementos na pilha\n");
+				}				
+			}
 		
 		else if('m' == escolha){
 			printStack(&s);
@@ -203,7 +200,7 @@ int main(){
 			int valor = atoi(&escolha);
 			pushFunction(&s, valor);
 			}		
-		
+				
 		}while(escolha != 's');
 
 

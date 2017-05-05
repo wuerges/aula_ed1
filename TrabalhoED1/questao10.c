@@ -6,11 +6,6 @@
 #include<stdbool.h>
 #define MAXQUEUE 11
 
-struct container{
-	int peso;
-	char nome[5];	
-	};
-
 struct queue {
 	int front, rear, aux;
 	int itens[MAXQUEUE];
