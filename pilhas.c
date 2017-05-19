@@ -16,18 +16,6 @@ void printStack(struct stack *s){
 	printf("\n");
 }
 
-void pushFunction(struct stack *s, int valor){
-	s->top++;	
-	s->itens[s->top] = valor;
-}
-
-int popFunction(struct stack *s){
-	int valor = s->itens[s->top];
-	s->top--;
-
-	return valor;
-}
-
 bool emptyFunction(struct stack *s){
 	if((s->top)<0){
 		return true;
@@ -38,12 +26,30 @@ bool emptyFunction(struct stack *s){
 }
 
 bool fullFunction(struct stack *s){
-	if((s->top)==99){
+	if((s->top)==(STACKSIZE-1)){
 		return true;
 	}
 	else{
 		return false;
 	}
+}
+
+void pushFunction(struct stack *s, int valor){
+	if (fullFunction(s)){
+		printf("Pilha cheia!\n");
+		}
+	
+	else{
+		s->top++;	
+		s->itens[s->top] = valor;		
+		}
+}
+
+int popFunction(struct stack *s){
+	int valor = s->itens[s->top];
+	s->top--;
+
+	return valor;
 }
 
 int sizeFunction(struct stack *s){
