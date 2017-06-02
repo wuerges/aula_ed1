@@ -46,29 +46,31 @@ void insert_ordenado(head * h, int idade, char nome[30]){
 
     //encontra o lugar do elemento na lista
     for(aux = h->first; (aux!=NULL) && (aux->id < nodo->id); aux = aux->next){
-		
-		//caso for o primeiro elemento
-		if(aux == NULL){
-			h->last = h->last = nodo;
-			printf("adicionou no primeiro\n");
-			}
-			
-		//caso seja o último elemento
-		else if(aux->next == NULL){
-			aux->next = nodo;
-			nodo->next = NULL;
-			nodo->prev = aux;
-			printf("adicionou no ultimo\n");		
-			}
-		
-		//caso seja inserido no meio
-		else{
-			aux->prev->next = nodo;
-			nodo->prev = aux->prev->next;
-			aux->prev = nodo;
-			nodo->next = aux;
-			printf("adicionou no ultimo\n");		
 			}			
+
+	//caso for o primeiro elemento
+	if(aux == NULL){
+		h->last = h->last = nodo;
+		printf("adicionou no primeiro\n");
+		}
+		
+	//caso seja o último elemento
+	else if(aux == h->last){
+		aux->next = nodo;
+		nodo->next = NULL;
+		nodo->prev = aux;
+		printf("adicionou no ultimo\n");		
+		}
+	
+	//caso seja inserido no meio
+	else{
+		aux->prev->next = nodo;
+		nodo->prev = aux->prev->next;
+		aux->prev = nodo;
+		nodo->next = aux;
+		printf("adicionou no ultimo\n");	
+	
+		
 		}
 	}
 
