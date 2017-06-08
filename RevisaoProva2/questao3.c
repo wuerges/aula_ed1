@@ -8,46 +8,41 @@
 #include<stdlib.h>
 
 typedef struct lista{
-	int id;
-	struct lista * next;	
+  int id;
+  struct lista * next;	
 }lista;
 
-void insert(lista * p, int id){
-	lista * nodo = malloc(sizeof(lista));
-	lista * aux;
+lista * insert(lista * p, int id){
+  lista * nodo = malloc(sizeof(lista));
+  lista * aux;
 
-	nodo->id = id;
-	nodo->next = p;
-	p = nodo;
+  nodo->id = id;
+  nodo->next = p;
+  //p = nodo; nao faz nada
 
-	}
-	
+  return nodo;
+}
+
 void print(lista * p){
-	lista * aux = p;
-	
-	for(aux; aux==NULL; aux = aux->next){
-		printf("%d ", aux->id);
-		}	
-	}
+  lista * aux = p;
+
+  for(aux; aux!=NULL; aux = aux->next){
+    printf("%d ", aux->id);
+  }	
+}
 
 
 int main(){
 
-	lista * p;
-	
-	p = NULL;
+  lista * p;
 
-	insert(p, 1);
-	insert(p, 2);
-	insert(p, 3);
-	
-	print(p);
-	
+  p = NULL;
 
+  p = insert(p, 1);
+  p = insert(p, 2);
+  p = insert(p, 3);
 
-	
-	
+  print(p);
 
-
-return 0;
+  return 0;
 }
