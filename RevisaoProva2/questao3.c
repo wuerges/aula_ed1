@@ -17,27 +17,15 @@ void insert(lista * p, int id){
 	lista * aux;
 
 	nodo->id = id;
-	nodo->next = NULL;		
-	
-	for(aux = p; aux->next!=NULL; aux = aux->next){
-		}
-
-	if(aux == p){
-		p = nodo;
-		printf("inseriu no começo\n");
-		}
-		
-	else{
-		aux->next = nodo;
-		printf("inseriu no meio\n");		
-		}
+	nodo->next = p;
+	p = nodo;
 
 	}
 	
 void print(lista * p){
-	lista * aux;
+	lista * aux = p;
 	
-	for(aux = p; aux!=NULL; aux = aux->next){
+	for(aux; aux==NULL; aux = aux->next){
 		printf("%d ", aux->id);
 		}	
 	}

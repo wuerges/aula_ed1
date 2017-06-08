@@ -12,17 +12,21 @@ typedef struct lista{
 	struct lista *next;
 }lista;
 
-void print(head * h){
-	lista * aux = h->first;
-	
-	if(h->first == NULL){
+typedef struct head{
+	lista *first, *last;
+	}head;
+
+void print(lista * p){
+	lista * aux = p;
+		
+	if(p == NULL){
 		printf("Lista vazia!\n");
 		}
 	
 	else{
 		printf("%d ", aux->x);
 		
-		for(aux = h->first; aux->next!=h->first; aux = aux->next){
+		for(aux = p; aux->next!=NULL; aux = aux->next){
 			printf("%d ", aux->next->x);
 			}
 		printf("\n");		
@@ -32,68 +36,29 @@ void print(head * h){
 void insert(lista * p, int x){
 	lista * nodo = malloc(sizeof(lista));
 	
-	nodo->next = p;
-	p = nodo;
-	
-	}
-
-void delete(head * h){
-	lista * aux1, *aux2;
-	
-	for(aux = p; aux!=NULL; aux = aux->next){
-		if(aux->next == NULL){
-			aux2 = aux;
-			}
+	if(p == NULL){
+		p = nodo;
 		}
 	
-	
-	 	
-	
-	}
-
-int empty(head * h){
-	int r;
-	if(h->first == NULL){
-		r = 0;
-		}
 	else{
-		delete(h);
-		r = 1;
-		}	
-	return r;
-	}
-	
-int search(head * h, int x){
-	lista * aux;
-
-	if(h->first->x==x){
-		printf("Posição na lista: %d\n", 0);
-		}
-	else{
-		int count = 1;
-		for(aux = h->first; aux->next!=h->first; aux = aux->next){
-			if ((aux->next->x)==x){
-				printf("Posição na lista: %d\n", count);
-				}
-			}		
+		nodo->next = p;
+		p = nodo;	
 		}	
 	}
-	
+
 int main(){
 
-	head h;
-	h.first = NULL;
-	h.last = NULL;
+//	head h;
+//	h.first = NULL;
+//	h.last = NULL;
 	
-	insert(&h,1);
-	insert(&h,2);
-	insert(&h,3);
+	lista * p = NULL;
 	
-	print(&h);
-	search(&h, 2);
+	insert(&p,1);
+	insert(&p,2);
+	insert(&p,3);
 	
-	empty(&h);	
-	print(&h);
+	print(&p);
 	
 	
 	
